@@ -6,6 +6,11 @@
     font-family: sans-serif;
 }
 
+@font-face {
+    font-family: 'digital-calculator-font';
+    src: url('./media/font/digital-7/digital-7\ \(mono\).ttf');
+}
+
 .container {
     width: 300px;
     height: 400px;
@@ -16,11 +21,24 @@
 }
 
 .display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 25%;
     border-radius: 5%;
     border: 2px solid black;
     background-color: white;
 }
+
+    .display>.main {
+        display: flex;
+        height: 50%;
+        align-items: center;
+        justify-content: right;
+        font-family: 'digital-calculator-font';
+        font-size: 5em;
+        color: black;
+    }
 
 .buttons {
     display: flex;
@@ -28,23 +46,23 @@
     height: 75%;
 }
 
-.row {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-}
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+    }
 
-.btn {
-    flex: 1;
-    border-radius: 25%;
-    margin: 1px;
-    font-size: 20px;
-}
+    .btn {
+        flex: 1;
+        border-radius: 25%;
+        margin: 1px;
+        font-size: 20px;
+    }
 
-.operator {
-    background-color: orange;
-}
+    .operator {
+        background-color: orange;
+    }
 
-.number {
-    background-color: lightgrey;
-}
+    .number {
+        background-color: lightgrey;
+    }
