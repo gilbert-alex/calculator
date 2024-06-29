@@ -1,9 +1,52 @@
 
-// variables
-let a = 0;
-let b = 0;
-let operator = '';
+const btns = document.querySelector('.buttons');
+const display = document.querySelector('.main');
 
+btns.addEventListener('click', event => {
+    handleBtnPress(event);
+});
+
+let displayValue = '';
+let ifn = []; // Infix Notation of Expression
+let rpn = []; // Reverse Polish Notation of Expression
+
+
+const handleBtnPress = function (event) {
+    //
+    const classList = event.target.classList;
+    const value = event.target.textContent;
+
+    if (classList.contains('number')) {
+        // build number on display
+        if (display.textContent.length === 1 
+            && display.textContent === '0') {
+                display.textContent = value;
+        } else {
+            display.textContent += value;
+        }
+    }
+
+    if (classList.contains('operator')) {
+        // store number and operator in memory
+        // reset display for another number
+        ifn.push(display.textContent);
+        ifn.push(value);
+        display.textContent = '0';
+    }
+
+    if (classList.contains('equal')) {
+        // store final number and run computation
+        ifn.push(display.textContent);
+        result = operate(ifn[1], ifn[0], ifn[2]);
+        display.textContent = result
+        ifn = [];
+    }
+
+    if (event.target.id === 'clear') {
+        ifn = [];
+        display.textContent = '0';
+    }
+}
 
 // calculator main operation
 const operate = function (operator, a, b) {
@@ -44,34 +87,3 @@ const multiply = function (a, b) {
 const divide = function (a, b) {
     return a / b;
 }
-
-// to do: implement a shunting yard algo to handle multi operator expressions
-// may have to refactor helper functions
-let displayValue = '';
-let expression = [];
-
-const handleBtnPress = document.querySelector('.buttons');
-const display = document.querySelector('.main');
-
-
-// make this a switch for readability and to leverage cascade. 
-// to do: add check for NaN and undefined 
-handleBtnPress.addEventListener('click', event => {
-    if (event.target.classList.contains('number')) {
-        displayValue += event.target.textContent;
-    } else if (event.target.classList.contains('operator')) {
-        expression.push(displayValue);
-        expression.push(event.target.textContent);
-        displayValue = '';
-    } else if (event.target.classList.contains('equal')) {
-        expression.push(displayValue);
-        display.textContent = operate(expression[1], expression[0], expression[2]);
-        displayValue = '';
-        expression = [];
-    } else if (event.target.id === 'clear') {
-        console.log('clear');
-    } else {
-        console.log(`${event.target.textContent} has no function`);
-    }
-    
-})
